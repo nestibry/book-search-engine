@@ -5,6 +5,7 @@ const typeDefs = `
         email: String
         password: String
         savedBooks: [Book]!
+        bookCount: Int
     }
 
     type Book {
@@ -13,6 +14,7 @@ const typeDefs = `
         description: String
         bookId: String
         image: String
+        link: String
         title: String
     }
 
