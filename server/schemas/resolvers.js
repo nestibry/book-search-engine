@@ -7,13 +7,13 @@ const resolvers = {
             return User.find();
         },
         
-        // // get current user by _id
-        // me: async (parent, args, context) => {
-        //     if(context.user){
-        //         return User.findById(context.user._id);
-        //     }
-        //     throw AuthenticationError;
-        // },
+        // Get Authenticated User's Information
+        me: async (parent, args, context) => {
+            if(context.user){
+                return User.findById(context.user._id);
+            }
+            throw AuthenticationError;
+        },
 
     },
 
