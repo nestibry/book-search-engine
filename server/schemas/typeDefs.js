@@ -24,7 +24,11 @@ const typeDefs = `
     }
 
     type Query {
-        getUsers: [User]
+        users: [User]
+    }
+
+    type Mutation {
+        login(email: String!, password: String!): Auth
     }
 
 `;
