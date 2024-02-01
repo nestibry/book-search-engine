@@ -42,7 +42,18 @@ const resolvers = {
             return { token, user };
         },
 
-        // saveBook
+        // args = input BookInput {bookId: ID!, title: String!, description: String!, authors: [String], image: String, link: String }
+        saveBook: async (parent, { bookInput } , context) => {
+            if(context.user){
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $addToSet: { savedBooks: bookInput }},
+                    { new: true, runValidators: true }
+                );
+                return updatedUser;
+            }
+            throw AuthenticationError;
+        },
 
         // deleteBook
 
