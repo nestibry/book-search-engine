@@ -47,7 +47,7 @@ const resolvers = {
             if(context.user){
                 const updatedUser = await User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $addToSet: { savedBooks: bookInput }},
+                    { $addToSet: { savedBooks: { bookInput } }},
                     { new: true, runValidators: true }
                 );
                 return updatedUser;
@@ -55,7 +55,17 @@ const resolvers = {
             throw AuthenticationError;
         },
 
-        // deleteBook
+        removeBook: async (parent, { bookId }, context) => {
+            if(context.user){
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: { bookId } } },
+                    { new: true }
+                );
+                return updatedUser;
+            }
+            throw AuthenticationError;
+        },
 
     },
 };
