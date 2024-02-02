@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
+import auth from './utils/auth';
 
 // Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -28,11 +29,19 @@ const authLink = setContext((_, { headers }) => {
     };
 });
 
+// Setup our client to execute the `authlink` middleware prior to making the request to our GraphQL API
+const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+})
+
 function App() {
     return (
         <>
-            <Navbar />
-            <Outlet />
+            <ApolloProvider client={client}>
+                <Navbar />
+                <Outlet />
+            </ApolloProvider>
         </>
     );
 }
