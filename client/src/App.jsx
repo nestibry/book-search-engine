@@ -32,8 +32,20 @@ const authLink = setContext((_, { headers }) => {
 // Setup our client to execute the `authlink` middleware prior to making the request to our GraphQL API
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+        typePolicies: {
+            User: {
+                fields: {
+                    savedBooks: {
+                        merge: false,
+                    },
+                },
+            },
+        },
+    }),
 })
+
+
 
 function App() {
     return (

@@ -17,27 +17,11 @@ import { useQuery } from '@apollo/client';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 
-import {
-    ApolloClient,
-    InMemoryCache,
-    ApolloProvider,
-    createHttpLink,
-} from '@apollo/client';
 
 const SavedBooks = () => {
     // const [userData, setUserData] = useState({});
 
-    const cache = new InMemoryCache({
-        typePolicies: {
-          User: {
-            fields: {
-              savedBooks: {
-                merge: true,
-              },
-            },
-          },
-        },
-      });
+    
 
     
     const { loading, data } = useQuery(QUERY_ME);
