@@ -21,6 +21,8 @@ import { useMutation } from '@apollo/client';
 const SavedBooks = () => {
     // const [userData, setUserData] = useState({});
 
+    const [ removeBook, { error, updatedUser}] = useMutation(REMOVE_BOOK);
+
     const { loading, data } = useQuery(QUERY_ME);
 
     const userData = data?.me || {};
@@ -70,14 +72,18 @@ const SavedBooks = () => {
         }
 
         try {
-            const response = await deleteBook(bookId, token);
+            // const response = await deleteBook(bookId, token);
 
-            if (!response.ok) {
-                throw new Error('something went wrong!');
-            }
+            // if (!response.ok) {
+            //     throw new Error('something went wrong!');
+            // }
 
-            const updatedUser = await response.json();
+            // const updatedUser = await response.json();
             // setUserData(updatedUser);
+
+            const { updatedUser } = await removeBook({ variables: { bookId: bookId } });
+            console.log( updatedUser );
+
             // upon success, remove book's id from localStorage
             removeBookId(bookId);
         } catch (err) {
