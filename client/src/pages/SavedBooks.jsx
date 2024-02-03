@@ -99,7 +99,7 @@ const SavedBooks = () => {
                     <h1>Viewing saved books!</h1>
                 </Container>
             </div>
-            {/* <Container>
+            <Container>
                 <h2 className='pt-5'>
                     {userData.savedBooks.length
                         ? `Viewing ${userData.savedBooks.length} saved ${userData.savedBooks.length === 1 ? 'book' : 'books'}:`
@@ -108,8 +108,8 @@ const SavedBooks = () => {
                 <Row>
                     {userData.savedBooks.map((book) => {
                         return (
-                            <Col md="4">
-                                <Card key={book.bookId} border='dark'>
+                            <Col key={book.bookId} md="4">
+                                <Card  border='dark'>
                                     {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
                                     <Card.Body>
                                         <Card.Title>{book.title}</Card.Title>
@@ -124,7 +124,7 @@ const SavedBooks = () => {
                         );
                     })}
                 </Row>
-            </Container> */}
+            </Container>
         </>
     );
 };
