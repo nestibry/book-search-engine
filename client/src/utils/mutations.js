@@ -19,19 +19,8 @@ export const ADD_USER = gql`
 export const SAVE_BOOK = gql`
     mutation saveBook($bookInput: BookInput!) {
         saveBook(bookInput: $bookInput) {
-            _id
-            username
-            email
+            # Need to return something, but no data is being used at this time
             bookCount
-            savedBooks {
-                _id
-                bookId
-                title
-                authors
-                description
-                image
-                link
-            }
         }
     }
 `;
