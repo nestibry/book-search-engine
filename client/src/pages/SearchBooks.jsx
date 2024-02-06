@@ -32,7 +32,7 @@ const SearchBooks = () => {
     });
 
     // SAVE_BOOK
-    const [ saveBook, { error }] = useMutation(SAVE_BOOK);
+    const [saveBook, { error }] = useMutation(SAVE_BOOK);
 
     // create method to search for books and set state on form submit
     const handleFormSubmit = async (event) => {
@@ -58,7 +58,7 @@ const SearchBooks = () => {
                 image: book.volumeInfo.imageLinks?.thumbnail || '',
                 link: book.volumeInfo.infoLink || ''
             }));
-            
+
             console.log(bookData);
             setSearchedBooks(bookData);
             setSearchInput('');
@@ -71,7 +71,7 @@ const SearchBooks = () => {
     const handleSaveBook = async (bookId) => {
         // find the book in `searchedBooks` state by the matching id
         const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-        
+
         // get token
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -134,14 +134,20 @@ const SearchBooks = () => {
                                         <Card.Title>{book.title}</Card.Title>
                                         <p className='small'>Authors: {book.authors}</p>
                                         <Card.Text>{book.description}</Card.Text>
+                                        <Button
+                                            disabled={ !book.link }
+                                            className='btn-block btn-info'
+                                            onClick={() => window.open(book.link, '_blank')}>
+                                            More Info
+                                        </Button>
                                         {Auth.loggedIn() && (
                                             <Button
                                                 disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
                                                 className='btn-block btn-info'
                                                 onClick={() => handleSaveBook(book.bookId)}>
                                                 {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                                    ? 'This book has already been saved!'
-                                                    : 'Save this Book!'}
+                                                    ? 'Book Saved!'
+                                                    : 'Save Book'}
                                             </Button>
                                         )}
                                     </Card.Body>
