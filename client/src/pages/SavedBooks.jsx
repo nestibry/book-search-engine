@@ -16,6 +16,8 @@ import { useQuery } from '@apollo/client';
 import { REMOVE_BOOK } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 
+import { saveBookIds } from '../utils/localStorage';
+
 
 const SavedBooks = () => {
     const { loading, data } = useQuery(QUERY_ME);
@@ -23,6 +25,10 @@ const SavedBooks = () => {
     const [ removeBook, { error }] = useMutation(REMOVE_BOOK);
     
     const userData = data?.me || {};
+    
+    const mySavedBookIds = userData?.savedBooks?.map((book) => book?.bookId) || [];
+    saveBookIds(mySavedBookIds);
+
     
     // create function that accepts the book's mongo _id value as param and deletes the book from the database
     const handleDeleteBook = async (bookId) => {
@@ -45,6 +51,11 @@ const SavedBooks = () => {
 
     if (loading) {
         return <div>Loading...</div>;
+    }
+    
+    // Redirect to main page if token has expired but the page was still open in the browser
+    if (!loading && !data){
+        window.location.assign('/');
     }
 
     return (
