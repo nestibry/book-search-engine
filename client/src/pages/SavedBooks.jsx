@@ -52,6 +52,11 @@ const SavedBooks = () => {
     if (loading) {
         return <div>Loading...</div>;
     }
+    
+    // Redirect to main page if token has expired but the page was still open in the browser
+    if (!loading && !data){
+        window.location.assign('/');
+    }
 
     return (
         <>
