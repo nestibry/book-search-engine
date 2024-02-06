@@ -1,5 +1,4 @@
 export const getSavedBookIds = () => {
-    alert('getting saved books');
   const savedBookIds = localStorage.getItem('saved_books')
     ? JSON.parse(localStorage.getItem('saved_books'))
     : [];
