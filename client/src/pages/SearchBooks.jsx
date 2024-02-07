@@ -161,7 +161,7 @@ const SearchBooks = () => {
                 <Row>
                     {searchedBooks.map((book) => {
                         return (
-                            <Col md={12} key={book.bookId}>
+                            <Col md={12} key={book.bookId} className='mb-4'>
                                 <Card border='dark'>
                                     <Row>
                                         <Col xs={12} md={4}>
