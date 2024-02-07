@@ -190,7 +190,7 @@ const SearchBooks = () => {
                                                             onClick={() => handleSaveBook(book.bookId)}>
                                                             {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
                                                                 ? 'Book Saved!'
-                                                                : 'Save Book to Reading List'}
+                                                                : 'Save to Reading List'}
                                                         </Button>
                                                     )}
                                                 </Row>
