@@ -124,42 +124,6 @@ const SearchBooks = () => {
                         ? `Viewing ${searchedBooks.length} results:`
                         : 'Search for a book to begin'}
                 </h2>
-                {/* <Row>
-                    {searchedBooks.map((book) => {
-                        return (
-                            <Col md="4" key={book.bookId}>
-                                <Card border='dark'>
-                                    {book.image ? (
-                                        <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
-                                    ) : null}
-                                    <Card.Body>
-                                        <Card.Title>{book.title}</Card.Title>
-                                        <p className='small'>Authors: {book.authors}</p>
-                                        <Card.Text>{book.description}</Card.Text>
-                                        <Button
-                                            disabled={ !book.link }
-                                            className='btn-block btn-info'
-                                            onClick={() => window.open(book.link, '_blank')}>
-                                            More Info
-                                        </Button>
-                                        {Auth.loggedIn() && (
-                                            <Button
-                                                disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                                                className='btn-block btn-info'
-                                                onClick={() => handleSaveBook(book.bookId)}>
-                                                {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                                    ? 'Book Saved!'
-                                                    : 'Save Book'}
-                                            </Button>
-                                        )}
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        );
-                    })}
-                </Row> */}
-
-
                 <Row>
                     {searchedBooks.map((book) => {
                         return (
