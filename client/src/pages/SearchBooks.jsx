@@ -8,6 +8,8 @@ import {
     Row
 } from 'react-bootstrap';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Auth from '../utils/auth';
 
 import { searchGoogleBooks } from '../utils/API';
@@ -174,22 +176,24 @@ const SearchBooks = () => {
                                                 <Card.Title>{book.title}</Card.Title>
                                                 <p className='small'>Authors: {book.authors}</p>
                                                 <Card.Text>{book.description}</Card.Text>
-                                                <Button
-                                                    disabled={!book.link}
-                                                    className='btn-block btn-info'
-                                                    onClick={() => window.open(book.link, '_blank')}>
-                                                    More Info
-                                                </Button>
-                                                {Auth.loggedIn() && (
+                                                <Row className='m-1'>
                                                     <Button
-                                                        disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
-                                                        className='btn-block btn-info'
-                                                        onClick={() => handleSaveBook(book.bookId)}>
-                                                        {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
-                                                            ? 'Book Saved!'
-                                                            : 'Save Book'}
+                                                        disabled={!book.link}
+                                                        className='mb-2 btn-block btn-secondary'
+                                                        onClick={() => window.open(book.link, '_blank')}>
+                                                        Google Books Info
                                                     </Button>
-                                                )}
+                                                    {Auth.loggedIn() && (
+                                                        <Button
+                                                            disabled={savedBookIds?.some((savedBookId) => savedBookId === book.bookId)}
+                                                            className='btn-block btn-primary'
+                                                            onClick={() => handleSaveBook(book.bookId)}>
+                                                            {savedBookIds?.some((savedBookId) => savedBookId === book.bookId)
+                                                                ? 'Book Saved!'
+                                                                : 'Save Book to Reading List'}
+                                                        </Button>
+                                                    )}
+                                                </Row>
                                             </Card.Body>
                                         </Col>
                                     </Row>
