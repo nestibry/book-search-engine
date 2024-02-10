@@ -21,6 +21,9 @@ import { SAVE_BOOK } from '../utils/mutations';
 import { QUERY_SAVED_BOOKS } from '../utils/queries';
 import { useApolloClient } from '@apollo/client';
 
+import { QUERY_ME } from '../utils/queries';
+import { useQuery } from '@apollo/client';
+
 const SearchBooks = () => {
     // create state for holding returned google api data
     const [searchedBooks, setSearchedBooks] = useState([]);
@@ -43,6 +46,12 @@ const SearchBooks = () => {
     const client = useApolloClient();
     const { me } = client?.readQuery({ query: QUERY_SAVED_BOOKS}) || {};
     console.log(me);
+
+    // QUERY_ME
+    const { loading, data } = useQuery(QUERY_ME);
+    const userData = data?.me || {};
+    const mySavedBookIds = userData?.savedBooks?.map((book) => book?.bookId) || [];
+    console.log(mySavedBookIds);
 
     // create method to search for books and set state on form submit
     const handleFormSubmit = async (event) => {
