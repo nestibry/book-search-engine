@@ -27,17 +27,23 @@ import { useQuery } from '@apollo/client';
 const SearchBooks = () => {
     // create state for holding returned google api data
     const [searchedBooks, setSearchedBooks] = useState([]);
+
     // create state for holding our search field data
     const [searchInput, setSearchInput] = useState('');
 
     // create state to hold saved bookId values
-    const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
+    // QUERY_ME
+    const { data } = useQuery(QUERY_ME);
+    const mySavedBookIds = data?.me?.savedBooks?.map((book) => book?.bookId) || [];
+    const [savedBookIds, setSavedBookIds] = useState(mySavedBookIds);
+    console.log(savedBookIds);
+    // const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
     // set up useEffect hook to save `savedBookIds` list to localStorage on component unmount
     // learn more here: https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
-    useEffect(() => {
-        return () => saveBookIds(savedBookIds);
-    });
+    // useEffect(() => {
+    //     return () => saveBookIds(savedBookIds);
+    // });
 
     // SAVE_BOOK
     const [saveBook, { error }] = useMutation(SAVE_BOOK);
@@ -45,13 +51,9 @@ const SearchBooks = () => {
     // READ from InMemoryCache
     const client = useApolloClient();
     const { me } = client?.readQuery({ query: QUERY_SAVED_BOOKS}) || {};
-    console.log(me);
+    // console.log(me);
 
-    // QUERY_ME
-    const { loading, data } = useQuery(QUERY_ME);
-    const userData = data?.me || {};
-    const mySavedBookIds = userData?.savedBooks?.map((book) => book?.bookId) || [];
-    console.log(mySavedBookIds);
+    
 
     // create method to search for books and set state on form submit
     const handleFormSubmit = async (event) => {
