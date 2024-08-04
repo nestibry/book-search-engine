@@ -14,7 +14,7 @@ const { ApolloServerPluginLandingPageLocalDefault,
 
 let plugins = [];
 if (process.env.NODE_ENV === "production") {
-  plugins = [ApolloServerPluginLandingPageProductionDefault({ embed: true, graphRef: "myGraph@prod" })];
+  plugins = [ApolloServerPluginLandingPageProductionDefault({ embed: true, graphRef: process.env.APOLLO_GRAPH_REF || "myGraph@prod" })];
 } else {
   plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
 }
