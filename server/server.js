@@ -7,11 +7,25 @@ const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 
+
+// Embedding on the Apollo Server landing page -- https://www.apollographql.com/docs/graphos/explorer/embed-explorer
+const { ApolloServerPluginLandingPageLocalDefault,
+  ApolloServerPluginLandingPageProductionDefault,  } = require('@apollo/server/plugin/landingPage/default');
+
+let plugins = [];
+if (process.env.NODE_ENV === "production") {
+  plugins = [ApolloServerPluginLandingPageProductionDefault({ embed: true, graphRef: "myGraph@prod" })];
+} else {
+  plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
+}
+
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    plugins,
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
