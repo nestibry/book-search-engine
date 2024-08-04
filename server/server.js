@@ -34,6 +34,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   plugins,
+  introspection: process.env.NODE_ENV === 'production' ? true : true, // Force introspection to true
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema
